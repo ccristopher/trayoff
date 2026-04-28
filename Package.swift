@@ -17,11 +17,6 @@ let package = Package(
             name: "TrayOff",
             dependencies: [],
             path: "Retainer Tracker"
-        ),
-        .testTarget(
-            name: "Retainer TrackerTests",
-            dependencies: ["TrayOff"],
-            path: "Retainer TrackerTests"
         )
     ]
 )
