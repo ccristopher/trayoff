@@ -6,6 +6,9 @@
 
 A modern SwiftUI app to track retainer usage time with a beautiful UI and helpful statistics.
 
+<img width="309" height="516" alt="phone with app running" src="https://github.com/user-attachments/assets/f9b615ed-908f-4f43-820d-7258fee62753" />
+
+
 ## Features
 
 - **Timer Tracking** — Track how long your retainer has been off
@@ -15,10 +18,6 @@ A modern SwiftUI app to track retainer usage time with a beautiful UI and helpfu
 - **Customizable Goals** — Set your own time goals and danger thresholds
 - **Reminders** — Get notified when it's time to put your retainer back on
 - **Modern UI** — Beautiful interface with animations and iOS 26 glass effects
-
-## Screenshots
-
-*Coming soon*
 
 ## Requirements
 
