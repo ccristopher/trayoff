@@ -12,7 +12,7 @@ This milestone starts by making the existing timer and session data trustworthy,
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Data Integrity Foundation** - Fix persistence, rollover, cross-day allocation, and establish a verification path.
+- [x] **Phase 1: Data Integrity Foundation** - Fix persistence, rollover, cross-day allocation, and establish a verification path.
 - [ ] **Phase 2: Product Polish Pass** - Tighten Home, Stats, Settings, onboarding, and app copy without redesigning TrayOff.
 - [ ] **Phase 3: Historical Session Log** - Make previous-day sessions browsable, editable, and understandable.
 - [ ] **Phase 4: Richer Statistics** - Build multi-day stats, trends, streaks, and low-data states on top of history.
@@ -117,7 +117,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Data Integrity Foundation | 3/3 | Needs Review | - |
+| 1. Data Integrity Foundation | 3/3 | Complete | 2026-05-03 |
 | 2. Product Polish Pass | 0/3 | Not started | - |
 | 3. Historical Session Log | 0/3 | Not started | - |
 | 4. Richer Statistics | 0/3 | Not started | - |
