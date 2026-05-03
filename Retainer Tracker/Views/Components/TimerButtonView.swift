@@ -53,9 +53,6 @@ struct TimerButtonView: View {
     
     @ObservedObject var viewModel: TimerViewModel
 
-    /// Available reminder durations in minutes.
-    let reminderTimes = [0, 1, 20, 30, 60]
-
     // MARK: - Computed Properties
     
     var backgroundColor: Color {
@@ -117,7 +114,7 @@ struct TimerButtonView: View {
             // Wheel picker overlay on long press
             if showTimePicker {
                 Picker("", selection: $selectedReminder) {
-                    ForEach(reminderTimes, id: \.self) { minutes in
+                    ForEach(AppConfig.Timer.reminderOptions, id: \.self) { minutes in
                         Text("\(minutes) min").tag(minutes)
                     }
                 }

@@ -42,9 +42,13 @@ class ReminderManager: ReminderManagerProtocol {
     // MARK: - Properties
     
     /// The selected reminder duration in minutes. Persisted to UserDefaults.
-    @Published var selectedReminder: Int = UserDefaults.standard.integer(forKey: "selectedReminder") {
+    @Published var selectedReminder: Int = ReminderManager.loadSelectedReminder() {
         didSet {
-            UserDefaults.standard.set(selectedReminder, forKey: "selectedReminder")
+            if !AppConfig.Timer.reminderOptions.contains(selectedReminder) {
+                selectedReminder = AppConfig.Timer.defaultReminder
+                return
+            }
+            UserDefaults.standard.set(selectedReminder, forKey: AppConfig.Persistence.selectedReminderKey)
         }
     }
     
@@ -103,6 +107,22 @@ class ReminderManager: ReminderManagerProtocol {
     }
 
     // MARK: - Private Methods
+
+    private static func loadSelectedReminder() -> Int {
+        let storedReminder = UserDefaults.standard.object(
+            forKey: AppConfig.Persistence.selectedReminderKey
+        ) as? Int ?? AppConfig.Timer.defaultReminder
+
+        guard AppConfig.Timer.reminderOptions.contains(storedReminder) else {
+            UserDefaults.standard.set(
+                AppConfig.Timer.defaultReminder,
+                forKey: AppConfig.Persistence.selectedReminderKey
+            )
+            return AppConfig.Timer.defaultReminder
+        }
+
+        return storedReminder
+    }
     
     private func startReminderCountdown() {
         stopReminderCountdown()

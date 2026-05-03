@@ -47,9 +47,9 @@ class TimerViewModel: ObservableObject {
     @Published var danger: Double = AppConfig.Timer.defaultDanger
     
     /// Whether to show the goal status indicator on the home screen.
-    @Published var showGoalStatus: Bool = UserDefaults.standard.bool(forKey: "showGoalStatus") {
+    @Published var showGoalStatus: Bool = UserDefaults.standard.bool(forKey: AppConfig.Persistence.showGoalStatusKey) {
         didSet {
-            UserDefaults.standard.set(showGoalStatus, forKey: "showGoalStatus")
+            UserDefaults.standard.set(showGoalStatus, forKey: AppConfig.Persistence.showGoalStatusKey)
         }
     }
     
