@@ -428,19 +428,10 @@ class TimerViewModel: ObservableObject {
     
     private func handleMidnightCrossing(today: Date) {
         if isRunning, let start = currentSessionStart {
-            let midnight = today
-            
-            if start < midnight {
-                sessionManager.addSession(start: start, end: midnight)
-                currentSessionStart = midnight
-                
-                let yesterdayDuration = midnight.timeIntervalSince(start)
-                
-                timerEngine.stop()
-                let newTotal = max(0, timerEngine.accumulatedTime - yesterdayDuration)
-                
+            if start < today {
+                let elapsedToday = max(0, Date().timeIntervalSince(today))
                 timerEngine.reset()
-                timerEngine.setAccumulatedTime(newTotal)
+                timerEngine.setAccumulatedTime(elapsedToday)
                 timerEngine.start()
             }
         } else {

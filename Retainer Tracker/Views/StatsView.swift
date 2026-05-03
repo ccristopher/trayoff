@@ -340,13 +340,8 @@ struct HistoryView: View {
         }
         days.reverse()
         
-        let groupedSessions = Dictionary(grouping: viewModel.allSessions) { session -> Date in
-            calendar.startOfDay(for: session.start)
-        }
-        
         return days.map { date in
-            let sessions = groupedSessions[date] ?? []
-            let totalDuration = sessions.reduce(0) { $0 + $1.duration }
+            let totalDuration = SessionDayAllocator.duration(on: date, sessions: viewModel.allSessions, calendar: calendar)
             return DailyData(date: date, duration: totalDuration)
         }
     }
