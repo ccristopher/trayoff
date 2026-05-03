@@ -36,3 +36,66 @@ Observed error:
 ```text
 xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance
 ```
+
+## Manual QA Scenarios
+
+### Settings persistence
+
+Status: Pending
+
+Steps:
+1. Open Settings.
+2. Change Goal to a non-default value.
+3. Change Danger to a value greater than or equal to Goal.
+4. Force quit TrayOff.
+5. Relaunch TrayOff.
+6. Reopen Settings and confirm the Goal and Danger values are restored.
+
+Expected:
+- Goal and Danger match the values set before force quit.
+- If Goal was raised above Danger, Danger is clamped to the Goal value instead of staying invalid.
+
+### Reminder option parity
+
+Status: Pending
+
+Steps:
+1. Open Settings and inspect Default Reminder options.
+2. Return Home.
+3. Long-press the timer button while the timer is stopped.
+4. Compare the Home picker options to Settings.
+
+Expected:
+- Both controls show `0, 15, 20, 30, 60`.
+- Choosing a value in either control stores the same selected reminder.
+
+### Active timer across midnight
+
+Status: Pending
+
+Steps:
+1. Start the timer before midnight, or set the simulator/device clock near midnight and start a session.
+2. Let the app cross midnight while the timer remains active.
+3. Confirm Home progress resets to the new day's elapsed total.
+4. Stop the timer after midnight.
+5. Open Stats and inspect today's session row.
+
+Expected:
+- Home progress shows the new day total while the active timer continues.
+- The eventual log remains one continuous session spanning midnight.
+- Daily totals use only the portion that overlaps each calendar day.
+
+### Manual cross-midnight session edit
+
+Status: Pending
+
+Steps:
+1. Create or edit a session.
+2. Set the session range to `11:50 PM -> 12:10 AM`.
+3. Save the session.
+4. Inspect the affected daily totals in Stats/history.
+
+Expected:
+- The session is allowed because `end >= start`.
+- Allocation is `10 minutes on each day`.
+- The displayed session remains a single edited log entry.
