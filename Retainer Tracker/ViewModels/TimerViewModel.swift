@@ -41,10 +41,32 @@ class TimerViewModel: ObservableObject {
     }
 
     /// The user's goal threshold in seconds.
-    @Published var goal: Double = AppConfig.Timer.defaultGoal
+    @Published var goal: Double = AppConfig.Timer.defaultGoal {
+        didSet {
+            guard !isLoadingState else { return }
+
+            if danger < goal {
+                danger = goal
+                return
+            }
+
+            saveState()
+        }
+    }
     
     /// The user's danger threshold in seconds.
-    @Published var danger: Double = AppConfig.Timer.defaultDanger
+    @Published var danger: Double = AppConfig.Timer.defaultDanger {
+        didSet {
+            guard !isLoadingState else { return }
+
+            if danger < goal {
+                danger = goal
+                return
+            }
+
+            saveState()
+        }
+    }
     
     /// Whether to show the goal status indicator on the home screen.
     @Published var showGoalStatus: Bool = UserDefaults.standard.bool(forKey: AppConfig.Persistence.showGoalStatusKey) {
@@ -89,6 +111,7 @@ class TimerViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var currentSessionStart: Date?
     private var lastResetDate: Date
+    private var isLoadingState = false
     
     private var modelContext: ModelContext?
 
@@ -341,6 +364,9 @@ class TimerViewModel: ObservableObject {
     private func loadState() {
         guard let state = persistenceService.loadTimerState() else { return }
 
+        isLoadingState = true
+        defer { isLoadingState = false }
+
         timerEngine.setInitialState(
             startTime: state.startTime,
             isRunning: state.isRunning,
@@ -353,6 +379,13 @@ class TimerViewModel: ObservableObject {
 
         self.lastResetDate = state.lastResetDate
         self.currentSessionStart = state.currentSessionStart
+
+        if let savedGoal = state.goal {
+            self.goal = savedGoal
+        }
+        if let savedDanger = state.danger {
+            self.danger = max(savedDanger, self.goal)
+        }
     }
     
     private func saveState() {

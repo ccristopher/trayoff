@@ -31,7 +31,7 @@ struct Provider: TimelineProvider {
     let timerStateKey = "timerState"
     
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), accumulatedTime: 3600, isRunning: false, status: .onTrack, goal: 3600, danger: 7200)
+        SimpleEntry(date: Date(), accumulatedTime: 3600, isRunning: false, status: .onTrack, goal: 7200, danger: 14400)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
@@ -53,8 +53,8 @@ struct Provider: TimelineProvider {
         
         var accumulatedTime: Double = 0
         var isRunning = false
-        var goal: Double = 3600
-        var danger: Double = 7200
+        var goal: Double = 7200
+        var danger: Double = 14400
         
         if let data = defaults?.data(forKey: timerStateKey),
            let state = try? JSONDecoder().decode(TimerState.self, from: data) {
