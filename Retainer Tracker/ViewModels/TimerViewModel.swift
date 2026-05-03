@@ -91,8 +91,10 @@ class TimerViewModel: ObservableObject {
     /// Sessions from today, sorted newest first.
     var todaySessions: [Session] {
         let today = Self.today()
-        return sessionManager.sessions
-            .filter { Calendar.current.isDate($0.start, inSameDayAs: today) }
+        return SessionDayAllocator.sessionsOverlapping(
+            day: today,
+            sessions: sessionManager.sessions
+        )
             .sorted { $0.start > $1.start }
     }
     
@@ -210,12 +212,12 @@ class TimerViewModel: ObservableObject {
     /// Returns aggregate statistics for today's sessions.
     func getStatistics() -> (totalTime: Double, averageTime: Double, sessionCount: Int) {
         let today = Self.today()
-        let todaySessions = sessionManager.sessions.filter { Calendar.current.isDate($0.start, inSameDayAs: today) }
+        let sessions = todaySessions
         
-        let totalTime = todaySessions.reduce(0.0) { $0 + $1.duration }
-        let averageTime = todaySessions.isEmpty ? 0.0 : totalTime / Double(todaySessions.count)
+        let totalTime = SessionDayAllocator.duration(on: today, sessions: sessionManager.sessions)
+        let averageTime = sessions.isEmpty ? 0.0 : totalTime / Double(sessions.count)
         
-        return (totalTime, averageTime, todaySessions.count)
+        return (totalTime, averageTime, sessions.count)
     }
     
     /// Statistics about goal streaks.
@@ -229,19 +231,28 @@ class TimerViewModel: ObservableObject {
     func getStreakStats() -> StreakStats {
         let calendar = Calendar.current
         let today = Self.today()
-        
-        let groupedSessions = Dictionary(grouping: sessionManager.sessions) { session -> Date in
-            calendar.startOfDay(for: session.start)
-        }
-        
-        var dailyDurations: [Date: TimeInterval] = [:]
-        for (date, sessions) in groupedSessions {
-            let totalDuration = sessions.reduce(0) { $0 + $1.duration }
-            dailyDurations[date] = totalDuration
-        }
-        
-        let sortedDates = dailyDurations.keys.sorted()
+
+        let allocatedDays = Set(
+            sessionManager.sessions.flatMap { session in
+                SessionDayAllocator.durationByDay(
+                    start: session.start,
+                    end: session.end,
+                    calendar: calendar
+                ).keys
+            }
+        )
+        let sortedDates = allocatedDays.sorted()
         let firstDate = sortedDates.first ?? today
+
+        let daysCount = max(0, calendar.dateComponents([.day], from: firstDate, to: today).day ?? 0)
+        let days = (0...daysCount).compactMap {
+            calendar.date(byAdding: .day, value: $0, to: firstDate)
+        }
+        let dailyDurations = SessionDayAllocator.durationsByDay(
+            for: days,
+            sessions: sessionManager.sessions,
+            calendar: calendar
+        )
         
         func isGoalMet(on date: Date) -> Bool {
             if date < firstDate { return false }
@@ -268,16 +279,12 @@ class TimerViewModel: ObservableObject {
         var tempStreak = 0
         
         if !sortedDates.isEmpty {
-            let daysCount = calendar.dateComponents([.day], from: firstDate, to: today).day ?? 0
-            
-            for i in 0...daysCount {
-                if let date = calendar.date(byAdding: .day, value: i, to: firstDate) {
-                    if isGoalMet(on: date) {
-                        tempStreak += 1
-                        bestStreak = max(bestStreak, tempStreak)
-                    } else {
-                        tempStreak = 0
-                    }
+            for date in days {
+                if isGoalMet(on: date) {
+                    tempStreak += 1
+                    bestStreak = max(bestStreak, tempStreak)
+                } else {
+                    tempStreak = 0
                 }
             }
         } else {
@@ -352,9 +359,7 @@ class TimerViewModel: ObservableObject {
     
     private func recalculateAccumulatedTime() {
         let today = Self.today()
-        let todaySessions = sessionManager.sessions.filter { Calendar.current.isDate($0.start, inSameDayAs: today) }
-        
-        let totalDuration = todaySessions.reduce(0.0) { $0 + $1.duration }
+        let totalDuration = SessionDayAllocator.duration(on: today, sessions: sessionManager.sessions)
         timerEngine.setAccumulatedTime(totalDuration)
         saveState()
     }
