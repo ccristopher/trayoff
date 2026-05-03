@@ -46,6 +46,7 @@ class ReminderManager: ReminderManagerProtocol {
         didSet {
             if !AppConfig.Timer.reminderOptions.contains(selectedReminder) {
                 selectedReminder = AppConfig.Timer.defaultReminder
+                UserDefaults.standard.set(selectedReminder, forKey: AppConfig.Persistence.selectedReminderKey)
                 return
             }
             UserDefaults.standard.set(selectedReminder, forKey: AppConfig.Persistence.selectedReminderKey)

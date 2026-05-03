@@ -76,7 +76,7 @@ enum SessionDayAllocator {
         
         for session in sessions {
             let sessionDurations = durationByDay(start: session.start, end: session.end, calendar: calendar)
-            for day in durations.keys {
+            for day in Array(durations.keys) {
                 if let duration = sessionDurations[day] {
                     durations[day, default: 0] += duration
                 }

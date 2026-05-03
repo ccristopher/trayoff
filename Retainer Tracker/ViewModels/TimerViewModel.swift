@@ -47,6 +47,7 @@ class TimerViewModel: ObservableObject {
 
             if danger < goal {
                 danger = goal
+                saveState()
                 return
             }
 
@@ -61,6 +62,7 @@ class TimerViewModel: ObservableObject {
 
             if danger < goal {
                 danger = goal
+                saveState()
                 return
             }
 
