@@ -23,6 +23,12 @@ enum AppConfig {
         
         /// Default danger threshold in seconds (4 hours).
         static let defaultDanger: Double = 14400.0
+
+        /// Default reminder duration in minutes.
+        static let defaultReminder: Int = 0
+
+        /// Reminder duration options in minutes.
+        static let reminderOptions: [Int] = [0, 15, 20, 30, 60]
         
         /// Timer update interval in seconds (100ms).
         static let updateInterval: TimeInterval = 0.1
@@ -39,6 +45,7 @@ enum AppConfig {
         static let sessionsKey = "timerSessions"
         static let reminderStartTimeKey = "reminderStartTime"
         static let selectedReminderKey = "selectedReminder"
+        static let showGoalStatusKey = "showGoalStatus"
         static let currentSessionStartKey = "currentSessionStart"
     }
     

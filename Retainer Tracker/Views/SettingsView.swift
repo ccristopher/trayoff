@@ -51,11 +51,9 @@ struct SettingsView: View {
                 
                 Section(header: Text("Default Reminder")) {
                     Picker("Default Reminder", selection: $viewModel.selectedReminder) {
-                        Text("0 minutes").tag(0)
-                        Text("15 minutes").tag(15)
-                        Text("20 minutes").tag(20)
-                        Text("30 minutes").tag(30)
-                        Text("60 minutes").tag(60)
+                        ForEach(AppConfig.Timer.reminderOptions, id: \.self) { minutes in
+                            Text("\(minutes) minutes").tag(minutes)
+                        }
                     }
                     .pickerStyle(.menu)
                 }
