@@ -9,10 +9,10 @@ Requirements for the App Store polish milestone. Each maps to roadmap phases.
 
 ### Reliability
 
-- [ ] **REL-01**: User's custom goal and danger thresholds persist immediately and restore correctly after relaunch.
-- [ ] **REL-02**: User sees the same reminder duration options in Settings and the Home reminder picker.
-- [ ] **REL-03**: User's timer total resets cleanly at midnight without carrying previous-day accumulated time into the new day.
-- [ ] **REL-04**: User sessions that cross midnight are represented accurately in daily history and statistics.
+- [x] **REL-01**: User's custom goal and danger thresholds persist immediately and restore correctly after relaunch.
+- [x] **REL-02**: User sees the same reminder duration options in Settings and the Home reminder picker.
+- [x] **REL-03**: User's timer total resets cleanly at midnight without carrying previous-day accumulated time into the new day.
+- [x] **REL-04**: User sessions that cross midnight are represented accurately in daily history and statistics.
 - [ ] **REL-05**: User history and stats remain responsive as stored sessions grow beyond a few days.
 
 ### Product Polish
@@ -46,7 +46,7 @@ Requirements for the App Store polish milestone. Each maps to roadmap phases.
 
 ### Release Readiness
 
-- [ ] **QA-01**: The project has a test target or equivalent focused verification path for timer, persistence, and stats logic.
+- [x] **QA-01**: The project has a test target or equivalent focused verification path for timer, persistence, and stats logic.
 - [ ] **QA-02**: Timer lifecycle, midnight rollover, cross-day session allocation, settings persistence, and streak math are covered by tests or documented manual QA.
 - [ ] **QA-03**: App Store readiness notes cover privacy/data use, notification permission behavior, Live Activity behavior, and known release checks.
 
@@ -84,10 +84,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| REL-01 | Phase 1 | Pending |
-| REL-02 | Phase 1 | Pending |
-| REL-03 | Phase 1 | Pending |
-| REL-04 | Phase 1 | Pending |
+| REL-01 | Phase 1 | Complete |
+| REL-02 | Phase 1 | Complete |
+| REL-03 | Phase 1 | Complete |
+| REL-04 | Phase 1 | Complete |
 | REL-05 | Phase 3 | Pending |
 | POL-01 | Phase 2 | Pending |
 | POL-02 | Phase 2 | Pending |
@@ -106,7 +106,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LIVE-02 | Phase 5 | Pending |
 | LIVE-03 | Phase 5 | Pending |
 | LIVE-04 | Phase 5 | Pending |
-| QA-01 | Phase 1 | Pending |
+| QA-01 | Phase 1 | Complete |
 | QA-02 | Phase 4 | Pending |
 | QA-03 | Phase 5 | Pending |
 

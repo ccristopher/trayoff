@@ -1,3 +1,14 @@
+---
+status: human_needed
+phase: 01-data-integrity-foundation
+updated: 2026-05-03
+human_verification:
+  - Settings persistence
+  - Reminder option parity
+  - Active timer across midnight
+  - Manual cross-midnight session edit
+---
+
 # Phase 1: Data Integrity Foundation - Verification
 
 ## Phase 1 Verification Matrix

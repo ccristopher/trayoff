@@ -36,7 +36,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 Plans:
 - [x] 01-01: Persist settings and unify reminder configuration
 - [x] 01-02: Correct midnight rollover and cross-day session allocation
-- [ ] 01-03: Add focused verification for persistence and timer/session math
+- [x] 01-03: Add focused verification for persistence and timer/session math
 
 ### Phase 2: Product Polish Pass
 **Goal**: Make the existing app feel more intentional and less generated while preserving the finished core experience.
@@ -117,7 +117,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Data Integrity Foundation | 0/3 | Not started | - |
+| 1. Data Integrity Foundation | 3/3 | Needs Review | - |
 | 2. Product Polish Pass | 0/3 | Not started | - |
 | 3. Historical Session Log | 0/3 | Not started | - |
 | 4. Richer Statistics | 0/3 | Not started | - |
