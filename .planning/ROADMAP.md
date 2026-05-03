@@ -34,7 +34,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: Persist settings and unify reminder configuration
+- [x] 01-01: Persist settings and unify reminder configuration
 - [ ] 01-02: Correct midnight rollover and cross-day session allocation
 - [ ] 01-03: Add focused verification for persistence and timer/session math
 
